@@ -19,14 +19,26 @@ namespace orologio
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
-                Graphics quadrante = this.CreateGraphics();
 
-                float x = ClientSize.Width;
-                float y = ClientSize.Height ;
 
-                Pen p = new Pen(Color.Black, 3);
-                quadrante.DrawEllipse(p, 5, 5, x - 10, y - 10);
+            Graphics g = this.CreateGraphics();
+
+            
+            Pen p = new Pen(Color.Black);
+
+            // prendiamo heigh perche cosi resta nel form agevolmente, con width uscirebbe percge l'altezza sarebbe troppo grande (width>height)
+            int diametro = ClientSize.Height;
+            int raggio = diametro / 2;
+
+            
+            int x = this.ClientSize.Width / 2 - raggio;
+            int y = this.ClientSize.Height / 2 - raggio;
+
+          
+            g.DrawEllipse(p, x, y, diametro, diametro);
+       
+
+            //APPUNTI per operazioni matematiche : 
 
             //( 2PI*((x-10)/2) )/12  è la lunghezza dell'arco che forma ogni "minuto"
 
