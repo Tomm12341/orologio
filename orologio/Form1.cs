@@ -34,20 +34,23 @@ namespace orologio
             int x = this.ClientSize.Width / 2 - raggio;
             int y = this.ClientSize.Height / 2 - raggio;
 
-            Graphics ee= this.CreateGraphics();
+           // Graphics ee= this.CreateGraphics();
             g.DrawEllipse(p, x, y, diametro-3, diametro-3);
-            const double angolo = (5.0d / 4.0d) * Math.PI;
-            for (int i = 0; i < 11; i++)
-            {
-                float x1 = (float)Math.Cos(angolo - ((3.0d / 2.0d) * Math.PI / 10.0d) * i) * 195.0f + 200.0f;
-                float y1 = (float)Math.Abs(Math.Sin(angolo - ((3.0d / 2.0d) * Math.PI / 10.0d) * i) * 195.0f - 200.0f);
-                float x2 = (float)Math.Cos(angolo - ((3.0d / 2.0d) * Math.PI / 10.0d) * i) * 180.0f + 200.0f;
-                float y2 = (float)Math.Abs(Math.Sin(angolo - ((3.0d / 2.0d) * Math.PI / 10.0d) * i) * 180.0f - 200.0f);
-                ee.DrawLine(p, x1, y1, x2, y2);
+            
+            
+            
+            // metodo 1    const double angolo = (5.0d / 4.0d) * Math.PI;
+           //for (int i = 0; i < 11; i++)
+            //{
+              //  float x1 = (float)Math.Cos(angolo - ((3.0d / 2.0d) * Math.PI / 10.0d) * i) * 195.0f + 200.0f;
+                //float y1 = (float)Math.Abs(Math.Sin(angolo - ((3.0d / 2.0d) * Math.PI / 10.0d) * i) * 195.0f - 200.0f);
+                //float x2 = (float)Math.Cos(angolo - ((3.0d / 2.0d) * Math.PI / 10.0d) * i) * 180.0f + 200.0f;
+                //float y2 = (float)Math.Abs(Math.Sin(angolo - ((3.0d / 2.0d) * Math.PI / 10.0d) * i) * 180.0f - 200.0f);
+                //ee.DrawLine(p, x1, y1, x2, y2);
 
-                float x3 = (float)Math.Cos(angolo - ((3.0d / 2.0d) * Math.PI / 10.0d) * i) * 215.0f + 200.0f + pictureBox1.Location.X;
-                float y3 = (float)Math.Abs(Math.Sin(angolo - ((3.0d / 2.0d) * Math.PI / 10.0d) * i) * 215.0f - 200.0f) + pictureBox1.Location.Y;
-            }
+                //float x3 = (float)Math.Cos(angolo - ((3.0d / 2.0d) * Math.PI / 10.0d) * i) * 215.0f + 200.0f + pictureBox1.Location.X;
+                //float y3 = (float)Math.Abs(Math.Sin(angolo - ((3.0d / 2.0d) * Math.PI / 10.0d) * i) * 215.0f - 200.0f) + pictureBox1.Location.Y;
+            //}
 
                 //APPUNTI per operazioni matematiche : 
 
