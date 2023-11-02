@@ -18,63 +18,38 @@ namespace orologio
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+
             Graphics g = this.CreateGraphics();
-
-
             Pen p = new Pen(Color.Black);
+
 
             // prendiamo heigh perche cosi resta nel form agevolmente, con width uscirebbe perche l'altezza sarebbe troppo grande (width>height)
             int diametro = ClientSize.Height;
             int raggio = diametro / 2;
 
 
+            // coordinate in alto a sinistra del rettangolo circoscritto all'orologio
             int x = this.ClientSize.Width / 2 - raggio;
             int y = this.ClientSize.Height / 2 - raggio;
 
-            // Graphics ee= this.CreateGraphics();
-            g.DrawEllipse(p, x, y, diametro - 3, diametro - 3);
 
             //Coordinate centro circonferenza
             int xc = this.ClientSize.Width / 2;
             int yc = this.ClientSize.Height / 2;
-            g.FillEllipse(Brushes.Black, xc, yc, 8, 8);
-
-            //Disegno lancette ore
-            DateTime t = new DateTime();
-            t = DateTime.Now;
-
-            Graphics d = this.CreateGraphics();
-            Pen lancetta = new Pen(Color.Black);
-            int oraOrologio = t.Hour;
-            if (t.Hour > 12)
-            {
-                oraOrologio = oraOrologio - 13;
 
 
-            }
+            //Disegna punto al centro dell'orologio
+            g.FillEllipse(Brushes.Black, xc-4, yc-4,8,8);
 
-            double xp = xc + (raggio - 15) * Math.Cos((Math.PI / 2) - oraOrologio * (Math.PI / 6));
-            double yp = yc - (raggio - 15) * Math.Sin((Math.PI / 2) - oraOrologio * (Math.PI / 6));
-            d.DrawLine(lancetta, xc, yc, (float)xp, (float)yp);
 
-            // lancette minuti 
+            //Disegna circongerenza esterna
+            g.DrawEllipse(p, x, y, diametro - 3, diametro - 3);
 
-            double angolo_minuti = 2 * Math.PI / 60 * t.Second;
-            xp = xc + (raggio - 30) * Math.Cos((Math.PI / 2) - angolo_minuti);
-            yp = yc - (raggio - 30) * Math.Sin((Math.PI / 2) - angolo_minuti);
-            d.DrawLine(lancetta, xc, yc, (float)xp, (float)yp);
 
+            //Disegna le tacche delle ore
             for (int i = 0; i < 12; i++)
             {
                 // 30 gradi perche 360/12 e calcolo l'angolo
@@ -92,9 +67,8 @@ namespace orologio
 
             }
 
+            p.Color = Color.BlueViolet;
 
-
-            Pen q = new Pen(Color.BlueViolet);
 
             // 11 sono le tacchette tra ogni ora(5,10,15,20....55) moltiplicati per 15 per far si che ce ne siano 11 tra ogni ora
             for (int i = 0; i < 11 * 15; i++)
@@ -109,16 +83,50 @@ namespace orologio
                 double yt1m = yc - raggio * Math.Sin(angolominuti);
 
 
-                g.DrawLine(q, (float)xtm, (float)ytm, (float)xt1m, (float)yt1m);
+                g.DrawLine(p, (float)xtm, (float)ytm, (float)xt1m, (float)yt1m);
             }
 
+            p.Color = Color.Black;
+
+
+            //Creo una variabile DateTime per prendere l'ora
+            DateTime t = new DateTime();
+            t = DateTime.Now;
+
+        
+            // lancette secondi 
+            double angolo_secondi = 2 * Math.PI / 60 * t.Second;
+            double xp = xc + (raggio - 30) * Math.Cos((Math.PI / 2) - angolo_secondi);
+            double yp = yc - (raggio - 30) * Math.Sin((Math.PI / 2) - angolo_secondi);
+            
+            g.DrawLine(p, xc, yc, (float)xp, (float)yp);
+
+
+            // lancette minuti 
+            double angolo_minuti = 2 * Math.PI / 60 * t.Minute;
+            xp = xc + (raggio - 40) * Math.Cos((Math.PI / 2) - angolo_minuti);
+            yp = yc - (raggio - 40) * Math.Sin((Math.PI / 2) - angolo_minuti);
+
+            p.Width = 2;
+            g.DrawLine(p, xc, yc, (float)xp, (float)yp);
+
+            
+            //Converto l'ora in un formato da 12 ore e disegno la lancetta delle ore
+            double angolo_ore = Math.PI / 6 * (t.Hour % 12);
+            xp = xc + (raggio - 70) * Math.Cos((Math.PI / 2) - angolo_ore);
+            yp = yc - (raggio - 70) * Math.Sin((Math.PI / 2) - angolo_ore);
+            
+            p.Width = 3;
+            g.DrawLine(p, xc, yc, (float)xp, (float)yp);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.Invalidate();
+            //Ridisegna l'orologio ogni secondo
+            this.Invalidate(false);
             this.Refresh();
         }
+
     }
 
 }
