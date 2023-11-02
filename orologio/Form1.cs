@@ -119,6 +119,7 @@ namespace orologio
             p.Width = 3;
             g.DrawLine(p, xc, yc, (float)xp, (float)yp);
         }
+    
 
         private void timer1_Tick(object sender, EventArgs e)
         {
