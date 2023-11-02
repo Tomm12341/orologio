@@ -113,11 +113,17 @@ namespace orologio
             }
 
         }
+    
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.Invalidate();
             this.Refresh();
+        }
+
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+
         }
     }
 
